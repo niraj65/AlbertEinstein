@@ -2,6 +2,14 @@
 	margin:0px;
 	padding:0px;
 }
+.sticky{
+	position: fixed;
+	top : 0;
+	width: 100%;
+}
+.sticky + .content{
+	padding-top: 102px;
+}
 #heading{
 	padding-top: 11px;
 	padding-bottom: 11px;
