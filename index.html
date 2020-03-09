@@ -2,21 +2,24 @@
 <html style="scroll-behavior: smooth;">
 <head>
 	<title>Albert Einstein-Biography </title> 
-	 <link href="https://fonts.googleapis.com/css?family=Karla|Pacifico&display=swap" rel="stylesheet">   
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Karla|Pacifico&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet"> 
+		<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-		<div class="menu">
-			<div class="header" id="myHeader">
-				<ul>
-					<h1 class="logo">Albert Einstein</h1>
-					<li><a href="#work">Work</a></li>
-					<li><a href="#life">Life</a></li>
-					<li><a href="AS.html" target="_blank">Questions and answers on Albert Einstein</a></li>
-				</ul>
-			</div>
+		<div class="header" id="myHeader">
+			<h1 class="logo">Albert Einstein</h1>				<nav class="menu">
+					<header>Menu <span>×</span></header>
+					<ol>
+						<li class="menu-item"><a href="#work">Work</a></li>
+						<li class="menu-item"><a href="#life">Life</a></li>
+						<li class="menu-item"><a href="AS.html" target="_blank">Questions and answers on Albert Einstein</a></li>
+					</ol>
+					<footer><button aria-label="Toggle Menu">Toggle</button></footer>
+				</nav>
 		</div>
-		
+	<div class="close">	
+	<div class="backimg"></div>
 	<div class="content">
 		<a id="b1" target="_blank" href="https://en.wikipedia.org/wiki/Albert_Einstein"><img src="https://www.nobelprize.org/images/einstein-12923-content-portrait-mobile-tiny.jpg" alt="einstein-12923-content-portrait-mobile-tiny" align="left" hspace="10" vspace="10"></a>
 
@@ -79,9 +82,10 @@
   				<source src="albert2.mp4" type="video/mp4">
   				Your browser does not support HTML5 video.
 			</video>
-
+		</div>
 		</div>
 	</div>
+	<!--script for fixing toolbar on scroll-->
 	<script>
 		window.onscroll=function(){myFunction()};
 
@@ -97,7 +101,43 @@
 				}
 		
 	</script>
+	<!-- script for menu animation-->
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script>
+    
+   	var $els = $('.menu a, .menu header');
+	var count = $els.length;
+	var grouplength = Math.ceil(count/3);
+	var groupNumber = 0;
+	var i = 1;
+	$('.menu').css('--count',count+'');
+	$els.each(function(j){
+    	if ( i > grouplength ) {
+    	    groupNumber++;
+    	    i=1;
+    	}
+    	$(this).attr('data-group',groupNumber);
+    	i++;
+	});
 
+	$('.menu footer button').on('click',function(e){
+	    e.preventDefault();
+	    $els.each(function(j){
+	        $(this).css('--top',$(this)[0].	getBoundingClientRect().top + ($(this).attr('data-group') * -10) - 2);
+        	$(this).css('--delay-in',j*.1+'s');
+        	$(this).css('--delay-out',(count-j)*.1+'s');
+    	});
+    	$('.menu').toggleClass('closed');
+    	e.stopPropagation();
+	});
+	// run animation once at beginning for demo
+	setTimeout(function(){
+	    $('.menu footer button').click();
+	    setTimeout(function(){
+	        $('.menu footer button').click();
+	    }, (count * 100) + 500 );
+	}, 1000);
+</script>
 </body>	
 </html>
 
